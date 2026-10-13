@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InsightFlow — Data Analytics Dashboard · Jatnex Technologies</title>
+  <meta name="description" content="InsightFlow turns your sales data into decisions. Upload a CSV or Excel file and explore revenue, products, customers and locations. Built by Jatnex Technologies.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230f1b3d'/%3E%3Crect x='5' y='13' width='3' height='6' rx='1' fill='%2322c3e6'/%3E%3Crect x='10.5' y='9' width='3' height='10' rx='1' fill='%2322c3e6'/%3E%3Crect x='16' y='5' width='3' height='14' rx='1' fill='%2322c3e6'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="app">
+  <!-- ============ Sidebar ============ -->
+  <aside class="sidebar" id="sidebar" aria-label="Sidebar">
+    <div class="brand">
+      <span class="brand-mark" data-icon="logo" data-size="22"></span>
+      <div>
+        <div class="brand-name">InsightFlow</div>
+        <div class="brand-by">by Jatnex Technologies</div>
+      </div>
+    </div>
+    <nav aria-label="Main">
+      <ul class="nav-list">
+        <li><a class="nav-link" href="#overview" data-page="overview"><span data-icon="overview"></span><span>Overview</span></a></li>
+        <li><a class="nav-link" href="#sales" data-page="sales"><span data-icon="sales"></span><span>Sales Analytics</span></a></li>
+        <li><a class="nav-link" href="#products" data-page="products"><span data-icon="products"></span><span>Products</span></a></li>
+        <li><a class="nav-link" href="#customers" data-page="customers"><span data-icon="customers"></span><span>Customers</span></a></li>
+        <li><a class="nav-link" href="#geo" data-page="geo"><span data-icon="geo"></span><span>Geographic Analysis</span></a></li>
+        <li><a class="nav-link" href="#entry" data-page="entry"><span data-icon="entry"></span><span>Data Entry</span></a></li>
+        <li><a class="nav-link" href="#explorer" data-page="explorer"><span data-icon="explorer"></span><span>Data Explorer</span></a></li>
+        <li><a class="nav-link" href="#reports" data-page="reports"><span data-icon="reports"></span><span>Reports</span></a></li>
+        <li><a class="nav-link" href="#settings" data-page="settings"><span data-icon="settings"></span><span>Settings</span></a></li>
+      </ul>
+    </nav>
+    <p class="sidebar-foot">Turn Your Data Into Decisions</p>
+  </aside>
+  <div class="scrim" id="scrim" hidden></div>
+
+  <div class="main-col">
+    <!-- ============ Header ============ -->
+    <header class="topbar">
+      <button type="button" class="icon-btn menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false" aria-controls="sidebar"><span data-icon="menu"></span></button>
+
+      <div class="search" role="search">
+        <span class="search-icon" data-icon="search" data-size="16"></span>
+        <label for="globalSearch" class="visually-hidden">Search pages, products, customers and cities</label>
+        <input id="globalSearch" class="input" type="search" placeholder="Search products, customers, cities…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="searchResults" aria-autocomplete="list">
+        <ul id="searchResults" class="search-results" role="listbox" aria-label="Search results" hidden></ul>
+      </div>
+
+      <div class="top-tools">
+        <span class="pill pill-demo" id="demoPill" hidden>Demo Data</span>
+        <div class="date-tool">
+          <label for="presetSelect" class="visually-hidden">Date range</label>
+          <select id="presetSelect" class="input input-sm"></select>
+          <span id="customDates" class="custom-dates" hidden>
+            <label for="customStart" class="visually-hidden">Start date</label><input type="date" id="customStart" class="input input-sm">
+            <span aria-hidden="true">to</span>
+            <label for="customEnd" class="visually-hidden">End date</label><input type="date" id="customEnd" class="input input-sm">
+          </span>
+        </div>
+        <button type="button" class="btn btn-primary btn-sm" id="uploadBtn"><span data-icon="upload" data-size="16"></span><span class="hide-sm">Upload data</span></button>
+
+        <div class="pop-wrap">
+          <button type="button" class="icon-btn" id="notifBtn" aria-label="Notifications" aria-expanded="false" aria-controls="notifPanel"><span data-icon="bell"></span><span class="badge" id="notifBadge" hidden>0</span></button>
+          <div class="popover" id="notifPanel" hidden>
+            <h2 class="pop-title">Notifications</h2>
+            <ul class="notif-list" id="notifList"></ul>
+          </div>
+        </div>
+
+        <button type="button" class="icon-btn" id="themeBtn" aria-label="Switch to dark theme" aria-pressed="false"></button>
+
+        <div class="pop-wrap">
+          <button type="button" class="profile-btn" id="profileBtn" aria-expanded="false" aria-controls="profileMenu" aria-label="Account menu">
+            <span class="avatar" aria-hidden="true">DA</span><span class="hide-sm">Demo Analyst</span>
+          </button>
+          <div class="popover popover-right" id="profileMenu" hidden>
+            <p class="pop-title">Demo account</p>
+            <p class="small muted">demo@jatnex.example. This is a fictional account for the demo. There is no sign-in.</p>
+            <button type="button" class="menu-item" id="profileSettings"><span data-icon="settings" data-size="16"></span> Settings</button>
+            <button type="button" class="menu-item" id="profileTheme"><span data-icon="moon" data-size="16"></span> Switch theme</button>
+            <button type="button" class="menu-item" id="profileDemo"><span data-icon="refresh" data-size="16"></span> Reload demo data</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ Main ============ -->
+    <main id="main" tabindex="-1">
+      <div class="state state-info" id="libWarn" role="status" hidden><span></span></div>
+
+      <div class="demo-banner" id="demoBanner" hidden>
+        <strong>Demo Data.</strong>
+        <span>You are viewing a fictional sales dataset. Nothing here describes a real business.</span>
+        <button type="button" class="btn btn-sm" id="bannerUpload">Upload your own file</button>
+      </div>
+
+      <!-- Global filters -->
+      <section class="filter-bar" id="filterArea" aria-label="Filters" hidden>
+        <div class="filter-fields">
+          <div class="field"><label for="fCategory">Category</label><select id="fCategory" class="input input-sm"></select></div>
+          <div class="field"><label for="fProduct">Product</label><select id="fProduct" class="input input-sm"></select></div>
+          <div class="field"><label for="fCity">City</label><select id="fCity" class="input input-sm"></select></div>
+          <div class="field"><label for="fState">State / Region</label><select id="fState" class="input input-sm"></select></div>
+          <div class="field"><label for="fPayment">Payment method</label><select id="fPayment" class="input input-sm"></select></div>
+          <div class="field"><label for="fStatus">Order status</label><select id="fStatus" class="input input-sm"></select></div>
+          <div class="filter-actions">
+            <button type="button" class="btn btn-primary btn-sm" id="applyFilters">Apply filters</button>
+            <button type="button" class="btn btn-sm" id="resetFilters">Reset filters</button>
+          </div>
+        </div>
+        <div class="chips" id="filterChips" aria-live="polite"></div>
+        <p class="small muted" id="rangeSummary"></p>
+      </section>
+
+      <div class="state state-info" id="noResults" role="status" hidden>
+        <strong>No rows match the current date range and filters.</strong>
+        <div class="btn-row">
+          <button type="button" class="btn btn-sm" id="noResultsClear">Clear all filters</button>
+          <button type="button" class="btn btn-sm" id="noResultsAll">Show all time</button>
+        </div>
+      </div>
+
+      <!-- Empty state (no dataset loaded) -->
+      <section class="empty-hero" id="noData" hidden aria-labelledby="noDataTitle">
+        <h1 id="noDataTitle" tabindex="-1">No data loaded</h1>
+        <p>Upload a CSV or Excel sales file, or explore the dashboard with fictional demo data.</p>
+        <div class="btn-row">
+          <button type="button" class="btn btn-primary" id="noDataUpload"><span data-icon="upload" data-size="16"></span> Upload data</button>
+          <button type="button" class="btn" id="noDataDemo">Load Demo Data</button>
+        </div>
+        <p class="small muted">Not sure what a file should look like? <a href="data/sample-sales.csv" id="sampleLink" download>Download the sample CSV</a>.</p>
+      </section>
+
+      <!-- ================= Overview ================= -->
+      <section class="page" id="page-overview" aria-labelledby="h-overview" hidden>
+        <div class="page-head"><div><h1 id="h-overview" tabindex="-1">Overview</h1><p class="sub" id="overviewSub"></p></div></div>
+        <div class="kpi-grid" id="kpiGrid"></div>
+        <div class="grid">
+          <article class="card col-8">
+            <div class="card-head"><h2 class="card-title">Revenue over time</h2>
+              <div class="field field-inline"><label for="granSelect" class="visually-hidden">Group revenue by</label>
+                <select id="granSelect" class="input input-sm"><option value="auto">Auto</option><option value="day">Daily</option><option value="week">Weekly</option><option value="month">Monthly</option></select></div></div>
+            <div class="chart-box tall"><canvas id="chRevenue" role="img" aria-label="Revenue over time"></canvas><p class="chart-empty" hidden></p></div>
+          </article>
+          <article class="card col-4">
+            <div class="card-head"><h2 class="card-title">Sales by category</h2></div>
+            <div class="chart-box tall"><canvas id="chCategory" role="img" aria-label="Sales by category"></canvas><p class="chart-empty" hidden></p></div>
+          </article>
+          <article class="card col-8">
+            <div class="card-head"><h2 class="card-title">Top 10 products</h2>
+              <div class="field field-inline"><label for="topSortSelect" class="visually-hidden">Sort top products by</label>
+                <select id="topSortSelect" class="input input-sm"><option value="revenue">By revenue</option><option value="units">By units sold</option></select></div></div>
+            <div class="chart-box tall"><canvas id="chTopProducts" role="img" aria-label="Top 10 products"></canvas><p class="chart-empty" hidden></p></div>
+          </article>
+          <article class="card col-4">
+            <div class="card-head"><h2 class="card-title">Key findings</h2></div>
+            <ul class="notes findings" id="insightsList"></ul>
+            <p class="small muted">These describe patterns in the selected data. They do not show what caused a change.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= Sales Analytics ================= -->
+      <section class="page" id="page-sales" aria-labelledby="h-sales" hidden>
+        <div class="page-head"><div><h1 id="h-sales" tabindex="-1">Sales Analytics</h1><p class="sub">How revenue, orders and payment methods move over the selected period.</p></div></div>
+        <div class="grid">
+          <article class="card col-6">
+            <div class="card-head"><h2 class="card-title">Orders vs revenue</h2>
+              <div class="field field-inline"><label for="salesGran" class="visually-hidden">Group by</label>
+                <select id="salesGran" class="input input-sm"><option value="auto">Auto</option><option value="day">Daily</option><option value="week">Weekly</option><option value="month">Monthly</option></select></div></div>
+            <div class="chart-box tall"><canvas id="chOrdersRevenue" role="img" aria-label="Orders vs revenue"></canvas><p class="chart-empty" hidden></p></div>
+          </article>
+          <article class="card col-6">
+            <div class="card-head"><h2 class="card-title">Monthly performance</h2></div>
+            <div class="chart-box tall"><canvas id="chMonthly" role="img" aria-label="Monthly performance"></canvas><p class="chart-empty" hidden></p></div>
+            <p class="small muted" id="monthlyNote"></p>
+          </article>
+          <article class="card col-6">
+            <div class="card-head"><h2 class="card-title">Payment method distribution</h2></div>
+            <div class="chart-box tall"><canvas id="chPayment" role="img" aria-label="Payment method distribution"></canvas><p class="chart-empty" hidden></p></div>
+          </article>
+          <article class="card col-6">
+            <div class="card-head"><h2 class="card-title">Monthly summary</h2></div>
+            <div id="monthlyTable"></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================= Products ================= -->
+      <section class="page" id="page-products" aria-labelledby="h-products" hidden>
+        <div class="page-head"><div><h1 id="h-products" tabindex="-1">Products</h1><p class="sub">Revenue, units and share for every product in the selected period.</p></div></div>
+        <div id="prodUnavailable" hidden></div>
+        <div id="prodContent">
+          <div class="grid">
+            <article class="card col-6"><h2 class="card-title">Top products by revenue</h2><ol class="rank-list" id="prodTop"></ol></article>
+            <article class="card col-6"><h2 class="card-title">Lowest-revenue products</h2><ol class="rank-list" id="prodLow"></ol><p class="small muted" id="prodLowNote"></p></article>
+          </div>
+          <article class="card" id="productsTable"></article>
+        </div>
+      </section>
+
+      <!-- ================= Customers ================= -->
+      <section class="page" id="page-customers" aria-labelledby="h-customers" hidden>
+        <div class="page-head"><div><h1 id="h-customers" tabindex="-1">Customers</h1><p class="sub">Who is buying, how often, and how much.</p></div></div>
+        <div id="custUnavailable" hidden></div>
+        <div id="custContent">
+          <div class="mini-kpis" id="custKpis"></div>
+          <p class="small muted" id="custNote"></p>
+          <div class="grid">
+            <article class="card col-4"><div class="card-head"><h2 class="card-title">New vs returning customers</h2></div>
+              <div class="chart-box tall"><canvas id="chNewReturning" role="img" aria-label="New vs returning customers"></canvas><p class="chart-empty" hidden></p></div></article>
+            <article class="card col-8"><div class="card-head"><h2 class="card-title">Top customers by revenue</h2></div>
+              <div class="chart-box tall"><canvas id="chTopCustomers" role="img" aria-label="Top customers by revenue"></canvas><p class="chart-empty" hidden></p></div></article>
+          </div>
+          <article class="card" id="customersTable"></article>
+        </div>
+      </section>
+
+      <!-- ================= Geographic ================= -->
+      <section class="page" id="page-geo" aria-labelledby="h-geo" hidden>
+        <div class="page-head"><div><h1 id="h-geo" tabindex="-1">Geographic Analysis</h1><p class="sub">Where sales come from.</p></div>
+          <div class="seg" id="geoLevel" role="group" aria-label="Group locations by">
+            <button type="button" data-level="city" aria-pressed="true">City</button>
+            <button type="button" data-level="state" aria-pressed="false">State / Region</button>
+          </div></div>
+        <div id="geoUnavailable" hidden></div>
+        <div id="geoContent">
+          <div class="grid">
+            <article class="card col-8"><div class="card-head"><h2 class="card-title">Revenue by location</h2></div>
+              <div class="chart-box tall"><canvas id="chGeo" role="img" aria-label="Revenue by location"></canvas><p class="chart-empty" hidden></p></div></article>
+            <article class="card col-4"><h2 class="card-title">Top-performing locations</h2><ol class="rank-list" id="geoTop"></ol><p class="small muted" id="geoNote"></p></article>
+          </div>
+          <article class="card"><h2 class="card-title" id="geoTableTitle">Location ranking</h2><div id="geoTable"></div></article>
+        </div>
+      </section>
+
+      <!-- ================= Data Entry ================= -->
+      <section class="page" id="page-entry" aria-labelledby="h-entry" hidden>
+        <div class="page-head"><div><h1 id="h-entry" tabindex="-1">Data Entry</h1><p class="sub">Type your orders straight into InsightFlow. No Excel file and no upload needed. Every saved order appears on all dashboard pages immediately.</p></div></div>
+        <div class="settings-stack wide" id="entryRoot"></div>
+      </section>
+
+      <!-- ================= Data Explorer ================= -->
+      <section class="page" id="page-explorer" aria-labelledby="h-explorer" hidden>
+        <div class="page-head"><div><h1 id="h-explorer" tabindex="-1">Data Explorer</h1><p class="sub">Inspect the imported rows, spot gaps and export what you see.</p></div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-sm" id="exUpload"><span data-icon="upload" data-size="16"></span> Upload data</button>
+            <button type="button" class="btn btn-sm" id="exMapping">Edit column mapping</button>
+            <button type="button" class="btn btn-sm" id="exReset"><span data-icon="refresh" data-size="16"></span> Reset to sample data</button>
+          </div></div>
+        <div id="exContent">
+          <div class="mini-kpis" id="exSummary"></div>
+          <p class="small muted" id="exNote"></p>
+          <article class="card" id="exTable"></article>
+          <details class="card disclosure"><summary>Column types and missing values</summary><div class="table-scroll" id="exMissing"></div></details>
+        </div>
+      </section>
+
+      <!-- ================= Reports ================= -->
+      <section class="page" id="page-reports" aria-labelledby="h-reports" hidden>
+        <div class="page-head"><div><h1 id="h-reports" tabindex="-1">Reports</h1><p class="sub">Download CSV summaries or print the report below. Everything follows the current date range and filters.</p></div></div>
+        <article class="card no-print">
+          <h2 class="card-title">Downloads</h2>
+          <div class="btn-row">
+            <button type="button" class="btn" id="dlFiltered"><span data-icon="download" data-size="16"></span> Filtered dataset (CSV)</button>
+            <button type="button" class="btn" id="dlProducts"><span data-icon="download" data-size="16"></span> Product summary (CSV)</button>
+            <button type="button" class="btn" id="dlCustomers"><span data-icon="download" data-size="16"></span> Customer summary (CSV)</button>
+            <button type="button" class="btn" id="dlMonthly"><span data-icon="download" data-size="16"></span> Monthly revenue (CSV)</button>
+            <button type="button" class="btn btn-primary" id="printReport"><span data-icon="printer" data-size="16"></span> Print report</button>
+          </div>
+          <p class="small muted">To save a PDF, choose “Save as PDF” as the printer in the print dialog. No PDF library is used.</p>
+        </article>
+        <article class="report-sheet" id="reportSheet" aria-label="Printable report preview"></article>
+      </section>
+
+      <!-- ================= Settings ================= -->
+      <section class="page" id="page-settings" aria-labelledby="h-settings" hidden>
+        <div class="page-head"><div><h1 id="h-settings" tabindex="-1">Settings</h1><p class="sub">Display preferences and data controls.</p></div></div>
+        <div class="settings-stack" id="settingsRoot"></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ============ Upload wizard ============ -->
+<dialog id="uploadDialog" class="modal modal-lg" aria-labelledby="uploadTitle">
+  <div class="modal-head">
+    <h2 id="uploadTitle">Upload sales data</h2>
+    <button type="button" class="icon-btn" id="uploadClose" aria-label="Close upload window"><span data-icon="x"></span></button>
+  </div>
+  <ol class="steps" id="uploadSteps" aria-label="Upload steps">
+    <li data-step="1" class="is-current">Choose file</li><li data-step="2">Match columns</li><li data-step="3">Review quality</li>
+  </ol>
+  <div class="modal-body">
+    <div id="uploadStatus" class="state state-error" role="alert" hidden></div>
+
+    <div id="uploadStep1" class="step">
+      <div class="dropzone" id="dropzone">
+        <span data-icon="upload" data-size="32"></span>
+        <p><strong>Drag and drop a file here</strong></p>
+        <p class="small muted">CSV, XLS or XLSX · up to 10 MB · up to 100,000 rows</p>
+        <button type="button" class="btn btn-primary" id="browseBtn">Browse files</button>
+        <input type="file" id="fileInput" class="visually-hidden" accept=".csv,.xls,.xlsx" aria-label="Choose a CSV or Excel file" tabindex="-1">
+      </div>
+      <p id="uploadLoading" class="state state-info" role="status" hidden><span class="spinner" aria-hidden="true"></span> Reading your file…</p>
+      <p class="privacy-note small"><strong>Privacy:</strong> your file is read inside this browser tab and is not sent to any server. It is kept in memory only, so it is gone when you reload the page.</p>
+      <p class="small muted">Need a template? <a href="data/sample-sales.csv" download>Download the sample CSV</a>.</p>
+      <div class="modal-foot"><button type="button" class="btn" id="cancelBtn1">Cancel</button></div>
+    </div>
+
+    <div id="uploadStep2" class="step" hidden>
+      <p id="uploadFileInfo" class="file-info"></p>
+      <div class="field" id="sheetField" hidden><label for="sheetSelect">Worksheet</label><select id="sheetSelect" class="input"></select></div>
+      <div id="uploadWarnings" class="state state-info" hidden></div>
+      <h3>Columns found in your file</h3>
+      <ul class="chips" id="detectedCols"></ul>
+      <h3>Preview (first rows)</h3>
+      <div class="table-scroll" id="previewTable" tabindex="0" role="region" aria-label="File preview (scrolls sideways)"></div>
+      <h3>Match your columns to InsightFlow fields</h3>
+      <p class="small muted">We guessed these from your column names. Fix any that are wrong. Order Date is required, and so is Revenue (or both Quantity and Unit Price, so revenue can be calculated). Everything else is optional; pages that need a missing field explain what is unavailable.</p>
+      <div class="form-grid" id="mapGrid"></div>
+      <div class="form-grid">
+        <div class="field"><label for="dateFmtSelect">Date format in your file</label>
+          <select id="dateFmtSelect" class="input"><option value="DMY">Day first (31/12/2026)</option><option value="MDY">Month first (12/31/2026)</option></select>
+          <p class="small muted" id="dateFmtHint"></p></div>
+        <label class="check" for="dedupe"><input type="checkbox" id="dedupe" checked><span><strong>Remove exact duplicate rows</strong><br><span class="small muted">A row identical to an earlier row in every column is dropped.</span></span></label>
+      </div>
+      <div id="mapErrors" class="state state-error" role="alert" tabindex="-1" hidden></div>
+      <div class="modal-foot">
+        <button type="button" class="btn" id="cancelBtn2">Cancel</button>
+        <button type="button" class="btn" id="replaceBtn2">Choose a different file</button>
+        <button type="button" class="btn btn-primary" id="checkQualityBtn">Check data quality</button>
+      </div>
+    </div>
+
+    <div id="uploadStep3" class="step" hidden>
+      <div id="qualityBody"></div>
+      <div class="modal-foot">
+        <button type="button" class="btn" id="cancelBtn3">Cancel</button>
+        <button type="button" class="btn" id="replaceBtn3">Choose a different file</button>
+        <button type="button" class="btn" id="backBtn3">Back to column matching</button>
+        <button type="button" class="btn btn-primary" id="importBtn">Import and analyze</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Confirm dialog -->
+<dialog id="confirmDialog" class="modal modal-sm" aria-labelledby="confirmTitle" aria-describedby="confirmText">
+  <form method="dialog">
+    <h2 id="confirmTitle">Are you sure?</h2>
+    <p id="confirmText"></p>
+    <div class="modal-foot">
+      <button type="submit" value="cancel" class="btn" id="confirmCancel">Cancel</button>
+      <button type="submit" value="ok" class="btn btn-primary" id="confirmOk">Confirm</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="busy" id="busy" hidden role="status"><span class="spinner" aria-hidden="true"></span><span id="busyMsg">Working…</span></div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<!-- Libraries (pinned versions, loaded from CDNs) -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<!-- App scripts (order matters) -->
+<script src="assets/js/data.js"></script>
+<script src="assets/js/analytics.js"></script>
+<script src="assets/js/filters.js"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/tables.js"></script>
+<script src="assets/js/upload.js"></script>
+<script src="assets/js/reports.js"></script>
+<script src="assets/js/entry.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
